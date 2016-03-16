@@ -1,0 +1,102 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message GET_VERSION (libsm0002) routine prototypes
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Returns the length of the serialised message in bytes.
+--
+-- NOTE: this routine effectively returns the cumulative size of all
+--       fields in the body of the message. Fields in the header are
+--       ignored.
+--
+-- [in    ]  this         : a message structure instance
+-- [return]               : number of bytes for serialised message
+--
+--------------------------------------------------------------------------------
+ROUTINE sm0002_len(this : sm0002_t) : INTEGER FROM libsm0002
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Constructor. Initialises given message instance.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm0002_ctor(this : sm0002_t) FROM libsm0002
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Resets fields in given message instance to their default values.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm0002_rset(this : sm0002_t) FROM libsm0002
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Serialisation routine: writes all fields of the given sm0002_t instance
+-- 'this' to the bytestream 'fd'.
+--
+-- NOTE: this routine serialises ONLY the fields in the message body proper.
+--       The header (and pkt_len) fields are responsibility of the caller.
+--
+-- [in    ]  this         : a message structure instance
+-- [in    ]  fd           : the FILE descriptor to write to
+-- [return]               : < 0 IFF any error was encountered while writing to
+--                          'fd'. Otherwise: 0
+--
+--------------------------------------------------------------------------------
+ROUTINE sm0002_wrte(this : sm0002_t; fd : FILE) : INTEGER FROM libsm0002
+
+
+
+
+--- list prototypes ------------------------------------------------------------
+
+ROUTINE sm0002l_ctor(this : sm0002_lst_t) : INTEGER FROM libsm0002
+ROUTINE sm0002l_size(this : sm0002_lst_t) : INTEGER FROM libsm0002
+ROUTINE sm0002l_cler(this : sm0002_lst_t) FROM libsm0002
+ROUTINE sm0002l_add (this : sm0002_lst_t; e : sm0002_lit_t) FROM libsm0002
+ROUTINE sm0002l_apnd(this : sm0002_lst_t; e : sm0002_lit_t) FROM libsm0002
+ROUTINE sm0002l_set (this : sm0002_lst_t; idx : INTEGER; e : sm0002_lit_t) : sm0002_lit_t FROM libsm0002
+ROUTINE sm0002l_get (this : sm0002_lst_t; idx : INTEGER) : sm0002_lit_t FROM libsm0002
+ROUTINE sm0002l_take(this : sm0002_lst_t; idx : INTEGER) : sm0002_lit_t FROM libsm0002
+ROUTINE sm0002l_rmov(this : sm0002_lst_t; idx : INTEGER) FROM libsm0002
+ROUTINE sm0002l_mpty(this : sm0002_lst_t) : BOOLEAN FROM libsm0002
+ROUTINE sm0002l_ins (this : sm0002_lst_t; idx : INTEGER; e : sm0002_lit_t) FROM libsm0002
+
+--- /list prototypes -----------------------------------------------------------

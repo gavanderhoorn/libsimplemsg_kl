@@ -1,0 +1,121 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message Joint Position (libsm000A) routine prototypes
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Returns the length of the serialised message in bytes.
+--
+-- NOTE: this routine effectively returns the cumulative size of all
+--       fields in the body of the message. Fields in the header are
+--       ignored.
+--
+-- [in    ]  this         : a message structure instance
+-- [return]               : number of bytes for serialised message
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000A_len(this : sm000A_t) : INTEGER FROM libsm000A
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Constructor. Initialises given message instance.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000A_ctor(this : sm000A_t) FROM libsm000A
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Resets fields in given message instance to their default values.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000A_rset(this : sm000A_t) FROM libsm000A
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Deserialisation routine: reads from the bytestream accessed through 'fd' and
+-- overwrites 'this' with the reconstructed sm000A_t instance.
+--
+-- NOTE: this routine deserialises ONLY the fields in the message body proper.
+--       The header (and pkt_len) fields are responsibility of the caller.
+-- 
+-- [in-out]  this         : a message structure instance
+-- [in    ]  fd           : the FILE descriptor to read from
+-- [return]               : < 0 IFF any error was encountered while reading from
+--                          'fd'. Otherwise: 0
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm000A_read(this : sm000A_t; fd : FILE) : INTEGER FROM libsm000A
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Serialisation routine: writes all fields of the given sm000A_t instance
+-- 'this' to the bytestream 'fd'.
+--
+-- NOTE: this routine serialises ONLY the fields in the message body proper.
+--       The header (and pkt_len) fields are responsibility of the caller.
+--
+-- [in    ]  this         : a message structure instance
+-- [in    ]  fd           : the FILE descriptor to write to
+-- [return]               : < 0 IFF any error was encountered while writing to
+--                          'fd'. Otherwise: 0
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000A_wrte(this : sm000A_t; fd : FILE) : INTEGER FROM libsm000A
+
+
+
+
+--- list prototypes ------------------------------------------------------------
+
+ROUTINE sm000Al_ctor(this : sm000A_lst_t) : INTEGER FROM libsm000A
+ROUTINE sm000Al_size(this : sm000A_lst_t) : INTEGER FROM libsm000A
+ROUTINE sm000Al_cler(this : sm000A_lst_t) FROM libsm000A
+ROUTINE sm000Al_add (this : sm000A_lst_t; e : sm000A_lit_t) FROM libsm000A
+ROUTINE sm000Al_apnd(this : sm000A_lst_t; e : sm000A_lit_t) FROM libsm000A
+ROUTINE sm000Al_set (this : sm000A_lst_t; idx : INTEGER; e : sm000A_lit_t) : sm000A_lit_t FROM libsm000A
+ROUTINE sm000Al_get (this : sm000A_lst_t; idx : INTEGER) : sm000A_lit_t FROM libsm000A
+ROUTINE sm000Al_take(this : sm000A_lst_t; idx : INTEGER) : sm000A_lit_t FROM libsm000A
+ROUTINE sm000Al_rmov(this : sm000A_lst_t; idx : INTEGER) FROM libsm000A
+ROUTINE sm000Al_mpty(this : sm000A_lst_t) : BOOLEAN FROM libsm000A
+ROUTINE sm000Al_ins (this : sm000A_lst_t; idx : INTEGER; e : sm000A_lit_t) FROM libsm000A
+
+--- /list prototypes -----------------------------------------------------------

@@ -1,0 +1,191 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+-- 
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+-- 
+--     http://www.apache.org/licenses/LICENSE-2.0
+-- 
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+PROGRAM libsm_hdr
+--------------------------------------------------------------------------------
+-- 
+-- ROS-Industrial Simple Message header (libsm_hdr) implementation
+-- 
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+-- 
+--------------------------------------------------------------------------------
+%ALPHABETIZE
+%COMMENT = 'ROS//r0'
+%NOBUSYLAMP
+%NOLOCKGROUP
+%NOPAUSE = COMMAND + TPENABLE + ERROR
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- remote types & constants
+-- 
+--------------------------------------------------------------------------------
+%INCLUDE stdex\ktype_sz.th
+%INCLUDE simplemsg\simplemsg.th
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- local types & constants
+-- 
+--------------------------------------------------------------------------------
+%INCLUDE simplemsg\sm_hdr.th
+
+CONST
+	-- internal use only
+	SM_HDR_STR_  = 'Header'
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- local variables
+--
+--------------------------------------------------------------------------------
+VAR
+	msg_len_     : INTEGER
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- remote routine prototypes
+-- 
+--------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- local routine prototypes
+-- 
+--------------------------------------------------------------------------------
+%INCLUDE simplemsg\sm_hdr.h
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Empty body
+-- 
+--------------------------------------------------------------------------------
+BEGIN
+END libsm_hdr
+
+
+
+
+ROUTINE sm_hdr_len
+BEGIN
+	IF (UNINIT(msg_len_)) THEN
+		msg_len_ = ( &
+			-- header fields
+			(3 * SZ_INT))
+	ENDIF
+	RETURN (msg_len_)
+END sm_hdr_len
+
+
+
+
+ROUTINE sm_hdr_name
+BEGIN
+	RETURN (SM_HDR_STR_)
+END sm_hdr_name
+
+
+
+
+ROUTINE sm_hdr_ctor
+BEGIN
+	sm_hdr_rset(this)
+END sm_hdr_ctor
+
+
+
+
+ROUTINE sm_hdr_rset
+BEGIN
+	-- reset each field to its default value
+	this.msg_type = SM_MT_INVALD
+	this.comm_type = SM_CT_INVAL
+	this.reply_type = SM_RT_INVAL
+END sm_hdr_rset
+
+
+
+
+ROUTINE sm_hdr_read
+VAR
+	stat__       : INTEGER
+	i__          : INTEGER
+	array_len__  : INTEGER
+BEGIN
+	stat__ = 0
+
+	READ fd(this.msg_type, this.comm_type, this.reply_type)
+	stat__ = IO_STATUS(fd)
+	IF (stat__ <> 0) THEN RETURN (-stat__); ENDIF
+
+	RETURN (-ABS(stat__))
+END sm_hdr_read
+
+
+
+
+ROUTINE sm_hdr_wrte
+VAR
+	stat__       : INTEGER
+	i__          : INTEGER
+	array_len__  : INTEGER
+BEGIN
+	stat__ = 0
+
+	WRITE fd(this.msg_type, this.comm_type, this.reply_type, CR)
+	stat__ = IO_STATUS(fd)
+	IF (stat__ <> 0) THEN RETURN (-stat__); ENDIF
+
+	RETURN (-ABS(stat__))
+END sm_hdr_wrte
+
+
+
+
+ROUTINE sm_hdr_tstr
+BEGIN
+	RETURN (sm_hdr_name(this))
+END sm_hdr_tstr
+
+
+
+
+ROUTINE sm_hdr_dump
+VAR
+	stat__       : INTEGER
+BEGIN
+	WRITE fd(sm_hdr_tstr(this), CR)
+	stat__ = IO_STATUS(fd)
+	RETURN (-ABS(stat__))
+END sm_hdr_dump

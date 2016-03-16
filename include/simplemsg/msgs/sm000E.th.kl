@@ -1,0 +1,63 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message JOINT_TRAJ_PT_FULL (libsm000E) shared type and
+-- constant decls
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+TYPE
+	sm000E_t FROM libsm000E = STRUCTURE
+		hdr          : sm_hdr_t     -- simple message header
+
+		robot_id     : INTEGER
+		sequence     : INTEGER
+		valid_fields : INTEGER
+		-- 'time' is a reserved word in Karel
+		tim_e        : REAL
+		-- we only support positions for now
+		positions    : ARRAY[SM_MAX_JOINT] OF REAL
+		--velocities   : ARRAY[SM_MAX_JOINT] OF REAL
+		-- this is NOT a typo: max len identifiers is 12, so ..
+		--accelrations : ARRAY[SM_MAX_JOINT] OF REAL
+	ENDSTRUCTURE
+
+
+	-- convenience: 'List ITem type' and 'LiST type'
+	sm000E_lit_t FROM libsm000E = sm000E_t
+	sm000E_lst_t FROM libsm000E = PATH NODEDATA = sm000E_lit_t
+
+
+CONST
+	SM000E_ID    = 14
+	SM000E_NAME  = 'Joint Traj Pt Full'
+
+	SM000E_INVID = -1
+
+	--
+	-- 'valid_fields' values
+	--
+	-- NOTE: these are bit MASKS, NOT positions
+	--
+	SM000E_VF_T  =  1  -- Time
+	SM000E_VF_P  =  2  -- Position
+	SM000E_VF_V  =  4  -- Velocity
+	SM000E_VF_A  =  8  -- Acceleration

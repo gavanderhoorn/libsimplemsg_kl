@@ -1,0 +1,43 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message Joint Posision (libsm000A) shared type and
+-- constant decls
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+TYPE
+	sm000A_t FROM libsm000A = STRUCTURE
+		hdr          : sm_hdr_t
+
+		sequence     : INTEGER
+		joint_data   : ARRAY[SM_MAX_JOINT] OF REAL
+	ENDSTRUCTURE
+
+
+	-- convenience: 'List ITem type' and 'LiST type'
+	sm000A_lit_t FROM libsm000A = sm000A_t
+	sm000A_lst_t FROM libsm000A = PATH NODEDATA = sm000A_lit_t
+
+
+CONST
+	SM000A_ID    = 10
+	SM000A_NAME  = 'Joint Position'

@@ -1,0 +1,62 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message JOINT_FEEDBACK (libsm000F) shared type and
+-- constant decls
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+TYPE
+	sm000F_t FROM libsm000F = STRUCTURE
+		hdr          : sm_hdr_t     -- simple message header
+
+		robot_id     : INTEGER
+		valid_fields : INTEGER
+		-- 'time' is a reserved word
+		tim_e        : REAL
+		-- we only support positions for now
+		positions    : ARRAY[SM_MAX_JOINT] OF REAL
+		--velocities   : ARRAY[SM_MAX_JOINT] OF REAL
+		-- this is NOT a typo: max len identifiers is 12, so ..
+		--accelrations : ARRAY[SM_MAX_JOINT] OF REAL
+	ENDSTRUCTURE
+
+
+	-- convenience: 'List ITem type' and 'LiST type'
+	sm000F_lit_t FROM libsm000F = sm000F_t
+	sm000F_lst_t FROM libsm000F = PATH NODEDATA = sm000F_lit_t
+
+
+CONST
+	SM000F_ID    = 15
+	SM000F_NAME  = 'Joint Feedback'
+
+	SM000F_INVID = -1
+
+	--
+	-- 'valid_fields' values
+	--
+	-- NOTE: these are bit MASKS, NOT positions
+	--
+	SM000F_VF_T  =  1
+	SM000F_VF_P  =  2
+	SM000F_VF_V  =  4
+	SM000F_VF_A  =  8

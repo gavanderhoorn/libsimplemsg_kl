@@ -1,0 +1,278 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+PROGRAM libsm0002
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message GET_VERSION (libsm0002) implementation
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+%ALPHABETIZE
+%COMMENT = 'ROS//r0'
+%NOBUSYLAMP
+%NOLOCKGROUP
+%NOPAUSE = COMMAND + TPENABLE + ERROR
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- remote types & constants
+--
+--------------------------------------------------------------------------------
+%INCLUDE stdex\ktype_sz.th
+%INCLUDE simplemsg\simplemsg.th
+%INCLUDE simplemsg\sm_hdr.th
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- local types & constants
+--
+--------------------------------------------------------------------------------
+%INCLUDE simplemsg\msgs\sm0002.th
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- local variables
+--
+--------------------------------------------------------------------------------
+VAR
+	msg_len_     : INTEGER
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- remote routine prototypes
+--
+--------------------------------------------------------------------------------
+%INCLUDE simplemsg\sm_hdr.h
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- local routine prototypes
+--
+--------------------------------------------------------------------------------
+%INCLUDE simplemsg\msgs\sm0002.h
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Empty body
+--
+--------------------------------------------------------------------------------
+BEGIN
+END libsm0002
+
+
+
+
+ROUTINE sm0002_len
+BEGIN
+	IF (UNINIT(msg_len_)) THEN
+		msg_len_ = ( &
+			-- major, minor, patch
+			(3 * SZ_INT))
+	ENDIF
+	RETURN (msg_len_)
+END sm0002_len
+
+
+
+
+ROUTINE sm0002_ctor
+BEGIN
+	sm0002_rset(this)
+END sm0002_ctor
+
+
+
+
+ROUTINE sm0002_rset
+BEGIN
+	sm_hdr_rset(this.hdr)
+	this.hdr.msg_type   = SM0002_ID
+	this.hdr.comm_type  = SM_CT_SVCRPL
+	this.hdr.reply_type = SM_RT_SUCC
+
+	this.major = -1
+	this.minor = -1
+	this.patch = -1
+END sm0002_rset
+
+
+
+
+ROUTINE sm0002_wrte
+VAR
+	stat__       : INTEGER
+BEGIN
+	stat__ = 0
+
+	-- NOTE: ONLY fields in msg body are serialised by this routine,
+	--       pkt_len & header are CALLERs reponsibility
+
+	-- body fields
+	WRITE fd(this.major, this.minor, this.patch)
+	stat__ = IO_STATUS(fd)
+	IF (stat__ <> 0) THEN RETURN (-stat__); ENDIF
+
+	-- flush write buffer
+	WRITE fd(CR)
+	stat__ = IO_STATUS(fd)
+
+	RETURN (-ABS(stat__))
+END sm0002_wrte
+
+
+
+
+--- list routines --------------------------------------------------------------
+
+ROUTINE sm0002l_ctor
+BEGIN
+	sm0002l_cler(this)
+	RETURN (0)
+END sm0002l_ctor
+
+
+
+
+ROUTINE sm0002l_size
+BEGIN
+	RETURN (PATH_LEN(this))
+END sm0002l_size
+
+
+
+
+ROUTINE sm0002l_cler
+VAR
+	i__ : INTEGER
+BEGIN
+	i__ = sm0002l_size(this)
+	-- TODO: why not just use 'i__'?
+	WHILE (sm0002l_size(this) > 0) DO
+		sm0002l_rmov(this, i__)
+		i__ = sm0002l_size(this)
+	ENDWHILE
+END sm0002l_cler
+
+
+
+
+ROUTINE sm0002l_add
+VAR
+	stat__ : INTEGER
+	tmp__  : INTEGER
+BEGIN
+	APPEND_NODE(this, stat__)
+	-- TODO: check status of operation
+	tmp__ = sm0002l_size(this)
+	this[tmp__] = e
+END sm0002l_add
+
+
+
+
+ROUTINE sm0002l_apnd
+BEGIN
+	sm0002l_add(this, e)
+END sm0002l_apnd
+
+
+
+
+ROUTINE sm0002l_set
+VAR
+	tmp__  : sm0002_lit_t
+	stat__ : INTEGER
+BEGIN
+	tmp__ = sm0002l_get(this, idx)
+	this[idx] = e
+	RETURN (tmp__)
+END sm0002l_set
+
+
+
+
+ROUTINE sm0002l_get
+BEGIN
+	RETURN (this[idx])
+END sm0002l_get
+
+
+
+
+ROUTINE sm0002l_take
+VAR
+	tmp__  : sm0002_lit_t
+	stat__ : INTEGER
+BEGIN
+	tmp__ = sm0002l_get(this, idx)
+	DELETE_NODE(this, idx, stat__)
+	-- TODO: check status of operation
+	RETURN (tmp__)
+END sm0002l_take
+
+
+
+
+ROUTINE sm0002l_rmov
+VAR
+	stat__ : INTEGER
+BEGIN
+	DELETE_NODE(this, idx, stat__)
+	-- TODO: check status of operation
+END sm0002l_rmov
+
+
+
+
+ROUTINE sm0002l_mpty
+BEGIN
+	RETURN (sm0002l_size(this) = 0)
+END sm0002l_mpty
+
+
+
+
+ROUTINE sm0002l_ins
+VAR
+	stat__ : INTEGER
+BEGIN
+	INSERT_NODE(this, idx, stat__)
+	-- TODO: check status of operation
+	this[idx] = e
+END sm0002l_ins
+
+
+--- /list routines -------------------------------------------------------------

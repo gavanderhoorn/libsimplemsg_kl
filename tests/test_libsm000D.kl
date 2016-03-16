@@ -1,0 +1,205 @@
+PROGRAM t_sm000d
+%NOLOCKGROUP
+
+%INCLUDE simplemsg\simplemsg.th
+%INCLUDE simplemsg\sm_tristate.th
+%INCLUDE simplemsg\sm_hdr.th
+%INCLUDE simplemsg\msgs\sm000D.th
+%INCLUDE stdex\ktype_sz.th
+
+
+CONST
+	PIPE_NAME = 'PIP:\tst_000d.pip'
+	MSG_ID    = 13
+
+VAR
+	fdw_         : FILE
+	fdr_         : FILE
+	lst__        : sm000D_lst_t
+
+
+
+%INCLUDE kunit\kunit.h
+%INCLUDE kunit\strlib.h
+
+%INCLUDE simplemsg\sm_hdr.h
+%INCLUDE simplemsg\msgs\sm000D.h
+
+
+
+
+
+
+
+ROUTINE setup_fds_(fdw : FILE; fdr : FILE) : INTEGER
+VAR
+	stat__       : INTEGER
+BEGIN
+	CLOSE FILE fdw
+	SET_FILE_ATR(fdw, ATR_UF)
+	OPEN FILE fdw('RW', PIPE_NAME)
+	stat__ = IO_STATUS(fdw)
+	IF (stat__ <> 0) THEN
+		WRITE TPDISPLAY('err init fdw:', stat__)
+		RETURN (-stat__)
+	ENDIF
+
+	CLOSE FILE fdr
+	SET_FILE_ATR(fdr, ATR_UF)
+	OPEN FILE fdr('RO', PIPE_NAME)
+	stat__ = IO_STATUS(fdr)
+	IF (stat__ <> 0) THEN
+		WRITE TPDISPLAY('err init fdr:', stat__)
+	ENDIF
+	RETURN (-stat__)
+END setup_fds_
+
+
+ROUTINE tdown_fds_(fdw : FILE; fdr : FILE)
+BEGIN
+	CLOSE FILE fdw
+	CLOSE FILE fdr
+END tdown_fds_
+
+
+ROUTINE assrt_bytes_(fd : FILE; num_bytes : INTEGER) : BOOLEAN
+-- TODO: candidate for merging into kunit itself
+VAR
+	stat__       : INTEGER
+	b_avail__    : INTEGER
+BEGIN
+	CLR_IO_STAT(fd)
+	BYTES_AHEAD(fd, b_avail__, stat__)
+	IF (stat__ <> 0) THEN RETURN (FALSE); ENDIF
+	RETURN(kunit_eq_int(num_bytes, b_avail__))
+END assrt_bytes_
+
+
+
+
+
+
+
+
+ROUTINE t_len : BOOLEAN
+VAR
+	msg__        : sm000D_t
+BEGIN
+	sm000D_ctor(msg__)
+	-- length is static for this message type
+	RETURN (kunit_eq_int(28, sm000D_len(msg__)))
+END t_len
+
+
+
+
+ROUTINE t_consts : BOOLEAN
+BEGIN
+	RETURN (kunit_eq_int(MSG_ID, SM000D_ID) AND
+		kunit_eq_str('Robot Status', SM000D_NAME))
+END t_consts
+
+
+
+
+ROUTINE t_ctor : BOOLEAN
+--------------------------------------------------------------------------------
+--
+-- Test c'tor of SM000D
+--
+-- Expect: completely reset msg structure
+--
+--------------------------------------------------------------------------------
+VAR
+	msg__        : sm000D_t
+	tres__       : BOOLEAN
+BEGIN
+	tres__ = TRUE
+
+	sm000D_ctor(msg__)
+
+	-- hdr
+	tres__ = tres__ AND kunit_eq_int(MSG_ID, msg__.hdr.msg_type)
+	tres__ = tres__ AND kunit_eq_int( 1, msg__.hdr.comm_type)
+	tres__ = tres__ AND kunit_eq_int( 0, msg__.hdr.reply_type)
+
+	-- body
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.drvs_pwd)
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.e_stopped)
+	tres__ = tres__ AND kunit_eq_int( 0, msg__.error_code)
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.in_error)
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.in_motion)
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.mode)
+	tres__ = tres__ AND kunit_eq_int(-1, msg__.mtn_psble)
+
+	RETURN (tres__)
+END t_ctor
+
+
+
+
+ROUTINE t_write : BOOLEAN
+--------------------------------------------------------------------------------
+--
+-- Test serialisation of SM000D
+--
+-- Expect: 
+--
+--------------------------------------------------------------------------------
+VAR
+	stat__       : INTEGER
+	msg__        : sm000D_t
+	tres__       : BOOLEAN
+	b_avail__    : INTEGER
+	temp__       : ARRAY[7] OF INTEGER
+BEGIN
+	-- setup
+	stat__ = setup_fds_(fdw_, fdr_)
+	IF (stat__ <> 0) THEN RETURN (FALSE); ENDIF
+	sm000D_ctor(msg__)
+	tres__ = TRUE
+
+
+	-- serialise msg to pipe
+	stat__ = sm000D_wrte(msg__, fdw_)
+	IF (NOT kunit_eq_int(0, stat__)) THEN RETURN (FALSE); ENDIF
+	tres__ = tres__ AND assrt_bytes_(fdr_, 28)
+
+	-- read back. Has only been constructed, so expect default values
+
+	-- drvs_pwd
+	READ fdr_(temp__[1], temp__[2], temp__[3], temp__[4], temp__[5], temp__[6], temp__[7])
+	IF (NOT kunit_eq_int(0, IO_STATUS(fdr_))) THEN RETURN (FALSE); ENDIF
+
+	-- all bytes should've been consumed here
+	tres__ = tres__ AND assrt_bytes_(fdr_, 0)
+
+	-- check fields
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[1])
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[2])
+	tres__ = tres__ AND kunit_eq_int( 0, temp__[3])
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[4])
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[5])
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[6])
+	tres__ = tres__ AND kunit_eq_int(-1, temp__[7])
+
+
+	-- tear down
+	tdown_fds_(fdw_, fdr_)
+
+	RETURN (tres__)
+END t_write
+
+
+
+
+BEGIN
+	kunit_init
+
+	kunit_test('t_consts', t_consts)
+	kunit_test('t_len', t_len)
+	kunit_test('t_ctor', t_ctor)
+	kunit_test('t_write', t_write)
+
+	kunit_output
+END t_sm000d

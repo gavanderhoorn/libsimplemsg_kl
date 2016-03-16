@@ -1,0 +1,136 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+-- 
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+-- 
+--     http://www.apache.org/licenses/LICENSE-2.0
+-- 
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+-- 
+-- ROS-Industrial Simple Message header (libsm_hdr) routine prototypes
+-- 
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+-- 
+--------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Returns the length of the serialised header in bytes.
+-- 
+-- [in    ]  this         : a header structure instance
+-- [return]               : number of bytes for serialised header
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_len(this : sm_hdr_t) : INTEGER FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Returns the name of the header as a string. This is not necessarily
+-- the same as the name of the library, header Karel structure or routine
+-- prefix.
+-- 
+-- [in    ]  this         : a header structure instance
+-- [return]               : ROS header name as a string
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_name(this : sm_hdr_t) : STRING  FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Constructor. Initialises given header instance.
+-- 
+-- [in-out]  this         : a header structure instance
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_ctor(this : sm_hdr_t) FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Resets fields in given header instance to their default values.
+-- 
+-- [in-out]  this         : a header structure instance
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_rset(this : sm_hdr_t) FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Deserialisation routine: reads from the bytestream accessed through 'fd' and
+-- overwrites 'this' with the reconstructed sm_hdr_t instance.
+-- 
+-- [in-out]  this         : a header structure instance
+-- [in    ]  fd           : the FILE descriptor to read from
+-- [return]               : < 0 IFF any error was encountered while reading from
+--                          'fd'. Otherwise: 0
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_read(this : sm_hdr_t; fd : FILE) : INTEGER FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Serialisation routine: writes all fields of the given sm_hdr_t instance
+-- 'this' to the bytestream 'fd'.
+-- 
+-- [in    ]  this         : a header structure instance
+-- [in    ]  fd           : the FILE descriptor to write to
+-- [return]               : < 0 IFF any error was encountered while writing to
+--                          'fd'. Otherwise: 0
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_wrte(this : sm_hdr_t; fd : FILE) : INTEGER FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Constructs a string representation of the header structure instance 'this'.
+-- 
+-- [in    ]  this         : a header structure instance
+-- [return]               : string describing the contents of the given instance
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_tstr(this : sm_hdr_t) : STRING FROM libsm_hdr
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Convenience routine that writes the return value of sm_hdr_tstr() to the
+-- given FILE descriptor.
+-- 
+-- [in    ]  this         : a header structure instance
+-- [in    ]  fd           : the FILE descriptor to write to
+-- [return]               : < 0 IFF any error was encountered while writing to
+--                          'fd'. Otherwise: 0
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm_hdr_dump(this : sm_hdr_t; fd : FILE) : INTEGER FROM libsm_hdr

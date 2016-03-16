@@ -1,0 +1,27 @@
+{
+  "manver" : "1",
+  "project" : "libsimplemsg",
+  "description" : "An implementation of the ROS-Industrial Simple Message protocol in Karel",
+  "version" : "0.1.0",
+  "license" : "Apache 2.0",
+  "author" : ["G.A. vd. Hoorn - Delft Robotics Institute"],
+  "source" : [
+    "src/libsm0001.kl",
+    "src/libsm0002.kl",
+    "src/libsm000A.kl",
+    "src/libsm000D.kl",
+    "src/libsm000E.kl",
+    "src/libsm000F.kl",
+    "src/libsm_hdr.kl"
+  ],
+  "tests" : [
+    "tests/test_libsm000D.kl"
+  ],
+  "includes" : [
+    "include"
+  ],
+  "depends" : [
+    "libstdex",
+    "kunit"
+  ]
+}

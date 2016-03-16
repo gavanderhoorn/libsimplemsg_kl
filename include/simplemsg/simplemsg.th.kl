@@ -1,0 +1,70 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message shared type / constant decls
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+CONST
+	--
+	-- Simple Message Standard socket Ports
+	--
+	SM_SP_MOTION = 11000  -- Motion/Trajectory
+	SM_SP_SYSTEM = 11001  -- System
+	SM_SP_STATE  = 11002  -- (Joint) State
+	SM_SP_IO     = 11003  -- IO
+
+
+	--
+	-- Simple Message Message types
+	--
+	SM_MT_INVALD =     0  -- invalid message type
+
+
+	--
+	-- Simple Message Communication types
+	--
+	SM_CT_INVAL  =     0  -- INVALID
+	SM_CT_TOPIC  =     1  -- TOPIC
+	SM_CT_SVCREQ =     2  -- SERVICE_REQUEST
+	SM_CT_SVCRPL =     3  -- SERVICE_REPLY
+
+
+	--
+	-- Simple Message Reply types
+	--
+	SM_RT_INVAL  =     0  -- INVALID/UNUSED
+	SM_RT_SUCC   =     1  -- SUCCESS
+	SM_RT_FAIL   =     2  -- FAILURE
+
+
+	--
+	-- Simple Message special SEQuence numbers
+	--
+	SM_SEQ_STRJD =    -1  -- START_TRAJECTORY_DOWNLOAD
+	SM_SEQ_STRJS =    -2  -- START_TRAJECOTRY_STREAMING
+	SM_SEQ_ETRAJ =    -3  -- END_TRAJECTORY
+	SM_SEQ_STPRJ =    -4  -- STOP_TRAJECTORY
+
+
+	--
+	-- Misc other constants
+	--
+	SM_MAX_JOINT =    10  -- default nr of joints in msgs
+	SM_MAX_MSGSZ =  1024  -- maximum size of simple_message msg (in bytes)
