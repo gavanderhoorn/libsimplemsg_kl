@@ -1,0 +1,103 @@
+
+-- Copyright (c) 2016, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message Joint Trajectory Point (libsm000B) routine
+-- prototypes
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Returns the length of the serialised message in bytes.
+--
+-- NOTE: this routine effectively returns the cumulative size of all
+--       fields in the body of the message. Fields in the header are
+--       ignored.
+--
+-- [in    ]  this         : a message structure instance
+-- [return]               : number of bytes for serialised message
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000B_len(this : sm000B_t) : INTEGER FROM libsm000B
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Constructor. Initialises given message instance.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000B_ctor(this : sm000B_t) FROM libsm000B
+
+
+
+
+--------------------------------------------------------------------------------
+--
+-- Resets fields in given message instance to their default values.
+--
+-- [in-out]  this         : a message structure instance
+--
+--------------------------------------------------------------------------------
+ROUTINE sm000B_rset(this : sm000B_t) FROM libsm000B
+
+
+
+
+--------------------------------------------------------------------------------
+-- 
+-- Deserialisation routine: reads from the bytestream accessed through 'fd' and
+-- overwrites 'this' with the reconstructed sm000B_t instance.
+--
+-- NOTE: this routine deserialises ONLY the fields in the message body proper.
+--       The header (and pkt_len) fields are responsibility of the caller.
+-- 
+-- [in-out]  this         : a message structure instance
+-- [in    ]  fd           : the FILE descriptor to read from
+-- [return]               : < 0 IFF any error was encountered while reading from
+--                          'fd'. Otherwise: 0
+-- 
+--------------------------------------------------------------------------------
+ROUTINE sm000B_read(this : sm000B_t; fd : FILE) : INTEGER FROM libsm000B
+
+
+
+
+--- list prototypes ------------------------------------------------------------
+
+ROUTINE sm000Bl_ctor(this : sm000B_lst_t) : INTEGER FROM libsm000B
+ROUTINE sm000Bl_size(this : sm000B_lst_t) : INTEGER FROM libsm000B
+ROUTINE sm000Bl_cler(this : sm000B_lst_t) FROM libsm000B
+ROUTINE sm000Bl_add (this : sm000B_lst_t; e : sm000B_lit_t) FROM libsm000B
+ROUTINE sm000Bl_apnd(this : sm000B_lst_t; e : sm000B_lit_t) FROM libsm000B
+ROUTINE sm000Bl_set (this : sm000B_lst_t; idx : INTEGER; e : sm000B_lit_t) : sm000B_lit_t FROM libsm000B
+ROUTINE sm000Bl_get (this : sm000B_lst_t; idx : INTEGER) : sm000B_lit_t FROM libsm000B
+ROUTINE sm000Bl_take(this : sm000B_lst_t; idx : INTEGER) : sm000B_lit_t FROM libsm000B
+ROUTINE sm000Bl_rmov(this : sm000B_lst_t; idx : INTEGER) FROM libsm000B
+ROUTINE sm000Bl_mpty(this : sm000B_lst_t) : BOOLEAN FROM libsm000B
+ROUTINE sm000Bl_ins (this : sm000B_lst_t; idx : INTEGER; e : sm000B_lit_t) FROM libsm000B
+
+--- /list prototypes -----------------------------------------------------------
