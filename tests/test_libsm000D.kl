@@ -1,11 +1,11 @@
 PROGRAM t_sm000d
 %NOLOCKGROUP
 
-%INCLUDE simplemsg\simplemsg.th
-%INCLUDE simplemsg\sm_tristate.th
-%INCLUDE simplemsg\sm_hdr.th
-%INCLUDE simplemsg\msgs\sm000D.th
-%INCLUDE stdex\ktype_sz.th
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_tristate.klt
+%INCLUDE simplemsg\sm_hdr.klt
+%INCLUDE simplemsg\msgs\sm000D.klt
+%INCLUDE ktype_sz.klt
 
 
 CONST
@@ -19,11 +19,11 @@ VAR
 
 
 
-%INCLUDE kunit\kunit.h
-%INCLUDE kunit\strlib.h
+%INCLUDE kunit\kunit.klh
+%INCLUDE kunit\strlib.klh
 
-%INCLUDE simplemsg\sm_hdr.h
-%INCLUDE simplemsg\msgs\sm000D.h
+%INCLUDE simplemsg\sm_hdr.klh
+%INCLUDE simplemsg\msgs\sm000D.klh
 
 
 

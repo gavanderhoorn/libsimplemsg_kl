@@ -36,9 +36,9 @@ PROGRAM libsm000A
 -- remote types & constants
 --
 --------------------------------------------------------------------------------
-%INCLUDE stdex\ktype_sz.th
-%INCLUDE simplemsg\simplemsg.th
-%INCLUDE simplemsg\sm_hdr.th
+%INCLUDE ktype_sz.klt
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 
@@ -48,7 +48,7 @@ PROGRAM libsm000A
 -- local types & constants
 --
 --------------------------------------------------------------------------------
-%INCLUDE simplemsg\msgs\sm000A.th
+%INCLUDE simplemsg\msgs\sm000A.klt
 
 
 
@@ -69,7 +69,7 @@ VAR
 -- remote routine prototypes
 --
 --------------------------------------------------------------------------------
-%INCLUDE simplemsg\sm_hdr.h
+%INCLUDE simplemsg\sm_hdr.klh
 
 
 
@@ -79,7 +79,7 @@ VAR
 -- local routine prototypes
 --
 --------------------------------------------------------------------------------
-%INCLUDE simplemsg\msgs\sm000A.h
+%INCLUDE simplemsg\msgs\sm000A.klh
 
 
 

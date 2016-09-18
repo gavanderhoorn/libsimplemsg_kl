@@ -36,8 +36,8 @@ PROGRAM libsm_hdr
 -- remote types & constants
 -- 
 --------------------------------------------------------------------------------
-%INCLUDE stdex\ktype_sz.th
-%INCLUDE simplemsg\simplemsg.th
+%INCLUDE ktype_sz.klt
+%INCLUDE simplemsg\simplemsg.klt
 
 
 
@@ -47,7 +47,7 @@ PROGRAM libsm_hdr
 -- local types & constants
 -- 
 --------------------------------------------------------------------------------
-%INCLUDE simplemsg\sm_hdr.th
+%INCLUDE simplemsg\sm_hdr.klt
 
 CONST
 	-- internal use only
@@ -81,7 +81,7 @@ VAR
 -- local routine prototypes
 -- 
 --------------------------------------------------------------------------------
-%INCLUDE simplemsg\sm_hdr.h
+%INCLUDE simplemsg\sm_hdr.klh
 
 
 
