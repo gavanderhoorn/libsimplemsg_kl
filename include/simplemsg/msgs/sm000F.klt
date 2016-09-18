@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM000F_KLT__
+%DEFINE SIMPLEMSG_MSGS_SM000F_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -22,6 +25,10 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 TYPE
@@ -56,7 +63,10 @@ CONST
 	--
 	-- NOTE: these are bit MASKS, NOT positions
 	--
-	SM000F_VF_T  =  1
-	SM000F_VF_P  =  2
-	SM000F_VF_V  =  4
-	SM000F_VF_A  =  8
+	SM000F_VF_T  =  1  -- Time
+	SM000F_VF_P  =  2  -- Position
+	SM000F_VF_V  =  4  -- Velocity
+	SM000F_VF_A  =  8  -- Acceleration
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM000F_KLT__

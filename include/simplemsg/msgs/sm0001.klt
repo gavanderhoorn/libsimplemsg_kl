@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM0001_KLT__
+%DEFINE SIMPLEMSG_MSGS_SM0001_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -22,6 +25,10 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 TYPE
@@ -40,3 +47,6 @@ TYPE
 CONST
 	SM0001_ID    = 1
 	SM0001_NAME  = 'Ping'
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM0001_KLT__

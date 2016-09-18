@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM0002_KLT__
+%DEFINE SIMPLEMSG_MSGS_SM0002_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -22,6 +25,9 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 TYPE
@@ -42,3 +48,6 @@ TYPE
 CONST
 	SM0002_ID    = 2
 	SM0002_NAME  = 'Get Version'
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM0002_KLT__

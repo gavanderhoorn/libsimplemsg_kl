@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM000A_KLT__
+%DEFINE SIMPLEMSG_MSGS_SM000A_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -22,6 +25,10 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 TYPE
@@ -41,3 +48,6 @@ TYPE
 CONST
 	SM000A_ID    = 10
 	SM000A_NAME  = 'Joint Position'
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM000A_KLT__

@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_SM_HDR_KLT__
+%DEFINE SIMPLEMSG_SM_HDR_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -30,3 +33,6 @@ TYPE
 		comm_type    : INTEGER
 		reply_type   : INTEGER
 	ENDSTRUCTURE
+
+
+%ENDIF -- SIMPLEMSG_SM_HDR_KLT__

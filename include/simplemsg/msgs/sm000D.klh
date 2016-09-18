@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM000D_KLH__
+%DEFINE SIMPLEMSG_MSGS_SM000D_KLH__
+
 
 --------------------------------------------------------------------------------
 --
@@ -100,3 +103,6 @@ ROUTINE sm000Dl_mpty(this : sm000D_lst_t) : BOOLEAN FROM libsm000D
 ROUTINE sm000Dl_ins (this : sm000D_lst_t; idx : INTEGER; e : sm000D_lit_t) FROM libsm000D
 
 --- /list prototypes -----------------------------------------------------------
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM000D_KLH__

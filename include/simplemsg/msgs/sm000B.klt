@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_MSGS_SM000B_KLT__
+%DEFINE SIMPLEMSG_MSGS_SM000B_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -22,6 +25,10 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
 
 
 TYPE
@@ -43,3 +50,6 @@ TYPE
 CONST
 	SM000B_ID    = 11
 	SM000B_NAME  = 'Joint Trajectory Point'
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SM000B_KLT__

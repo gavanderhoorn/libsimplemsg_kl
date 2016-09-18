@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_SIMPLEMSG_KLT__
+%DEFINE SIMPLEMSG_SIMPLEMSG_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -68,3 +71,6 @@ CONST
 	--
 	SM_MAX_JOINT =    10  -- default nr of joints in msgs
 	SM_MAX_MSGSZ =  1024  -- maximum size of simple_message msg (in bytes)
+
+
+%ENDIF -- SIMPLEMSG_SIMPLEMSG_KLT__

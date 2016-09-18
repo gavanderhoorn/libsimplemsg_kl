@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_SM_TRISTATE_KLT__
+%DEFINE SIMPLEMSG_SM_TRISTATE_KLT__
+
 
 --------------------------------------------------------------------------------
 --
@@ -21,7 +24,12 @@
 -- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
 --
 --------------------------------------------------------------------------------
+
+
 CONST
 	SM_TRI_UNKNW = -1  -- Unknown or unavailable
 	SM_TRI_FALSE =  0  -- Low state (OFF, DISABLED, LOW)
 	SM_TRI_TRUE  =  1  -- High state (ON, ENABLED, HIGH)
+
+
+%ENDIF -- SIMPLEMSG_SM_TRISTATE_KLT__

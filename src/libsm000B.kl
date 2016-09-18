@@ -39,7 +39,6 @@ PROGRAM libsm000B
 --------------------------------------------------------------------------------
 %INCLUDE ktype_sz.klt
 %INCLUDE simplemsg\simplemsg.klt
-%INCLUDE simplemsg\sm_hdr.klt
 
 
 

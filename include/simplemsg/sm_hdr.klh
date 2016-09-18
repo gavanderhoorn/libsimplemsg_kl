@@ -13,6 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+%IFNDEF SIMPLEMSG_SM_HDR_KLH__
+%DEFINE SIMPLEMSG_SM_HDR_KLH__
+
 
 --------------------------------------------------------------------------------
 -- 
@@ -134,3 +137,6 @@ ROUTINE sm_hdr_tstr(this : sm_hdr_t) : STRING FROM libsm_hdr
 -- 
 --------------------------------------------------------------------------------
 ROUTINE sm_hdr_dump(this : sm_hdr_t; fd : FILE) : INTEGER FROM libsm_hdr
+
+
+%ENDIF -- SIMPLEMSG_SM_HDR_KLH__

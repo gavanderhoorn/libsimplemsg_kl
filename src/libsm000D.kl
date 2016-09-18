@@ -38,8 +38,6 @@ PROGRAM libsm000D
 --------------------------------------------------------------------------------
 %INCLUDE ktype_sz.klt
 %INCLUDE simplemsg\simplemsg.klt
-%INCLUDE simplemsg\sm_tristate.klt
-%INCLUDE simplemsg\sm_hdr.klt
 
 
 
