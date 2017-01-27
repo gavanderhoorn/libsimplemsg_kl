@@ -21,7 +21,7 @@ supported.
 ## Naming
 
 As Karel imposes severe restrictions on identifier name length (12 characters
-max), message libraries and type (`.th.kl`) and routine prototype (`.h.kl`)
+max), message libraries and type (`.klt`) and routine prototype (`.klh`)
 header names include the message's assigned identifiers only (and in
 hexadecimal).
 
