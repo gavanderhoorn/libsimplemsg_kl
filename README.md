@@ -35,8 +35,9 @@ assigned message identifiers.
 ## Building and Usage
 
 This package is a [rossum][] package and is ideally build with that. Package
-build dependencies are listed in the package manifest. For usage without
-`rossum` see the [backwards compatibility][] entry in the [ktransw][] FAQ.
+build dependencies are listed in the package manifest. Usage without `rossum`
+or [ktransw][] is feasible, but not recommended.
+
 See [rossum][] also for more information on how to build a `rossum` workspace.
 
 To use the individual message libraries just include the relevant headers (both
@@ -50,5 +51,4 @@ appropriate arguments.
 [genfrkl]: https://github.com/gavanderhoorn/genfrkl
 [REP-I0004]: https://github.com/ros-industrial/rep/blob/master/rep-I0004.rst
 [rossum]: https://github.com/gavanderhoorn/rossum
-[backwards compatibility]: https://github.com/gavanderhoorn/ktransw_py#how-about-backwards-compatibility-with-non-ktransw-users
 [ktransw]: https://github.com/gavanderhoorn/ktransw_py
