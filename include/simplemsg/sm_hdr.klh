@@ -101,6 +101,11 @@ ROUTINE sm_hdr_read(this : sm_hdr_t; fd : FILE) : INTEGER FROM libsm_hdr
 -- Serialisation routine: writes all fields of the given sm_hdr_t instance
 -- 'this' to the bytestream 'fd'.
 -- 
+-- NOTE: this routine does not flush 'fd' (ie: no 'CR' is written to 'fd'),
+--       as it is expected that this routine will mostly be used in conjunction
+--       with other simplemessage serialisation routines (and those are
+--       expected to flush the bytestream).
+-- 
 -- [in    ]  this         : a header structure instance
 -- [in    ]  fd           : the FILE descriptor to write to
 -- [return]               : < 0 IFF any error was encountered while writing to

@@ -163,7 +163,7 @@ VAR
 BEGIN
 	stat__ = 0
 
-	WRITE fd(this.msg_type, this.comm_type, this.reply_type, CR)
+	WRITE fd(this.msg_type, this.comm_type, this.reply_type)
 	stat__ = IO_STATUS(fd)
 	IF (stat__ <> 0) THEN RETURN (-stat__); ENDIF
 
