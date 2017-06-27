@@ -1,0 +1,66 @@
+
+-- Copyright (c) 2017, TU Delft Robotics Institute
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
+%IFNDEF SIMPLEMSG_MSGS_SMFF78_KLT__
+%DEFINE SIMPLEMSG_MSGS_SMFF78_KLT__
+
+
+--------------------------------------------------------------------------------
+--
+-- ROS-Industrial Simple Message 'Fanuc Lin with CR' (libsmFF78) shared type and
+-- constant decls
+--
+-- author: G.A. vd. Hoorn (TU Delft Robotics Institute)
+--
+--------------------------------------------------------------------------------
+
+
+%INCLUDE simplemsg\simplemsg.klt
+%INCLUDE simplemsg\sm_hdr.klt
+
+
+CONST
+	SMFF78_POSSZ = 6
+
+
+TYPE
+	smFF78_t FROM libsmFF78 = STRUCTURE
+		hdr          : sm_hdr_t     -- simple message header
+
+		sequence     : INTEGER
+
+		vel          : INTEGER           -- linear velocity in mm/sec
+		cr_          : INTEGER           -- CR value
+		acc          : INTEGER           -- ACC value
+
+		pose         : ARRAY[SMFF78_POSSZ] OF REAL  -- basically XYZ (mm) + WPR (degree)
+
+		-- TODO: should these be added?
+		--user_frame   : INTEGER
+		--tool_frame   : INTEGER
+	ENDSTRUCTURE
+
+
+	-- convenience: 'List ITem type' and 'LiST type'
+	smFF78_lit_t FROM libsmFF78 = smFF78_t
+	smFF78_lst_t FROM libsmFF78 = PATH NODEDATA = smFF78_lit_t
+
+
+CONST
+	SMFF78_ID    = 65400            -- arbitrary, but in the 'Freely Assignable' range of REP-I0004
+	SMFF78_NAME  = 'Fanuc Lin with CR'
+
+
+%ENDIF -- SIMPLEMSG_MSGS_SMFF78_KLT__

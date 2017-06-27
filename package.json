@@ -13,6 +13,7 @@
     "src/libsm000D.kl",
     "src/libsm000E.kl",
     "src/libsm000F.kl",
+    "src/libsmFF78.kl",
     "src/libsm_hdr.kl"
   ],
   "tests" : [
